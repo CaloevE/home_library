@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react';
 import {AppstoreOutlined, SettingOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Menu} from 'antd';
+import styles from './index.module.scss'
 
 const items: MenuProps['items'] = [
 	{
@@ -61,7 +62,9 @@ const MainMenu: FC = () => {
 	return <Menu onClick={onClick}
 	             selectedKeys={[current]}
 	             mode="horizontal"
-	             items={items}/>;
+	             items={items}
+	             className={styles.menu}
+	/>;
 };
 
 export default MainMenu;
