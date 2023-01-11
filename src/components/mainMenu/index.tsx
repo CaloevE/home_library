@@ -12,15 +12,17 @@ const items: MenuProps['items'] = [
 		children: [
 			{
 				type: 'group',
-				label: 'Item 1',
+				label: 'Books',
 				children: [
 					{
-						label: 'Option 1',
+						label: (
+							<a href="http://gutendex.com/books"
+							   target="_blank"
+							   rel="noopener noreferrer">
+								Google Books
+							</a>
+						),
 						key: 'setting:1',
-					},
-					{
-						label: 'Option 2',
-						key: 'setting:2',
 					},
 				],
 			},
