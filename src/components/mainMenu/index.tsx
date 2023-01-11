@@ -61,12 +61,14 @@ const MainMenu: FC = () => {
 		setCurrent(e.key);
 	};
 
-	return <Menu onClick={onClick}
-	             selectedKeys={[current]}
-	             mode="horizontal"
-	             items={items}
-	             className={styles.menu}
-	/>;
+	return <>
+		<Menu onClick={onClick}
+		      selectedKeys={[current]}
+		      mode="horizontal"
+		      items={items}
+		      className={styles.header}
+		/>
+	</>
 };
 
 export default MainMenu;

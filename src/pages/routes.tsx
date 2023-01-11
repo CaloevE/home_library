@@ -1,6 +1,8 @@
 import {FC, lazy, Suspense, useEffect} from 'react';
 import {Navigate, RouteObject, useLocation, useRoutes} from 'react-router';
 
+import DefaultLayout from "../layouts/Default";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any,react/display-name
 const Loadable = (Component: FC) => (props: any) => {
 	return (
@@ -12,10 +14,9 @@ const Loadable = (Component: FC) => (props: any) => {
 
 const Page = {
 	Library: {
-		List: Loadable(lazy(() => import('./local_Library'))),
+		List: Loadable(lazy(() => import('./library'))),
 		Book: {
-			List: Loadable(lazy(() => import('./local_Library/'))),
-			Id: Loadable(lazy(() => import('./local_Library/_bookId'))),
+			Id: Loadable(lazy(() => import('./library/_bookId'))),
 		},
 	},
 	Error404: Loadable(lazy(() => import('./error404'))),
@@ -24,30 +25,24 @@ const Page = {
 const routes: Array<RouteObject> = [
 	{
 		path: '/',
+		element: <DefaultLayout/>,
 		children: [{
 			path: '/',
-			element: <Navigate to="/project"
+			element: <Navigate to="/library"
 			                   replace/>
 		}],
 	},
 	{
-		path: '/project',
+		path: '/library',
+		element: <DefaultLayout/>,
 		children: [
 			{index: true, element: <Page.Library.List/>},
 			{
-				path: ':projectId',
+				path: ':bookId',
 				children: [
 					{
 						index: true,
-						element: <Navigate to="./book"
-						                   replace/>
-					},
-					{
-						path: 'book',
-						children: [
-							{index: true, element: <Page.Library.Book.List/>},
-							{path: ':bookId', element: <Page.Library.Book.Id/>},
-						],
+						element: <Page.Library.Book.Id/>
 					},
 				],
 			},
@@ -55,7 +50,10 @@ const routes: Array<RouteObject> = [
 	},
 	{
 		path: '*',
-		element: <Page.Error404/>,
+		element: (
+			<DefaultLayout>
+				<Page.Error404/>
+			</DefaultLayout>),
 	},
 ];
 

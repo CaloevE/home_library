@@ -1,9 +1,12 @@
 import {FC} from "react";
+import styles from './index.module.scss';
+import books from '../../images/books.jpg'
 
 const BookList: FC = () => {
-	console.log('Something here')
 	return <>
-		Some Books here
+		<div className={styles.bookList}>
+			<img src={books}/>
+		</div>
 	</>
 };
 
