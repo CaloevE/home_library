@@ -1,26 +1,11 @@
-:root {
-  --main-color: #75139FF;
-  --secondary-color: #864c05;
-}
-
-body {
-  background-color: var(--main-color);
-}
-
-html {
-  font-size: 75%;
-}
-
 .header {
   width: 100%;
-  color: var(--secondary-color);
+  color: #864c05;
   box-shadow: 0 5px 10px #C2935AFF;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
-  padding-inline: 0 !important;
 }
 
 
