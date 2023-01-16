@@ -1,11 +1,52 @@
 .header {
   width: 100%;
-  color: #864c05;
   box-shadow: 0 5px 10px #C2935AFF;
+  position: relative;
+  background: #ffe2c0;
+}
+
+.menu {
+  color: #864c05;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #ffe2c0;
+  left: 10%;
   position: relative;
 }
 
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
 
+.search input {
+  outline: 0;
+  border: 0;
+  width: 350px;
+  height: 35px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.search button {
+  position: relative;
+  height: 35px;
+  left: 5px;
+}
+
+.searchInput {
+  padding: 0 10px;
+  bottom: 7px;
+  position: relative;
+}
+
+.body {
+  background-color: #ffe2c0;
+}
+
+html {
+  font-size: 75%;
+}

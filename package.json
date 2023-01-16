@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -11,7 +12,10 @@
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "antd": "^5.1.4",
+    "axios": "^0.27.2",
+    "clsx": "^1.1.1",
     "google-material-color-palette-json": "^2.0.1",
+    "modern-normalize": "^1.1.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router": "^6.3.0",
@@ -26,7 +30,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "api:download-and-generate": "npm run api:download && npm run api:generate",
+    "api:download": "node swagger/download-spec-file.js",
+    "api:generate": "npx @openapitools/openapi-generator-cli generate -i swagger/swagger.json -g typescript-axios --additional-properties=useSingleRequestParameter=true -o src/generated/api"
   },
   "eslintConfig": {
     "extends": [
@@ -51,8 +58,10 @@
     ]
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.1",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
+    "dotenv": "^16.0.1",
     "eslint": "^8.17.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -62,6 +71,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.6.2",
     "prettier-stylelint": "^0.4.2",
+    "sass": "^1.52.3",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-prettier": "^2.0.0",

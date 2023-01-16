@@ -1,11 +1,17 @@
-.bookList {
+.container {
   background: #864C05;
   width: 75%;
-  height: 95%;
-  margin: 5px auto 0;
+  height: 900px;
+  margin: 25px auto 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(50px, 0.5fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
   grid-gap: 20px;
+  box-sizing: border-box;
+}
+
+.bookList {
+  background: #864C05;
+  margin: 5px auto 0;
   box-sizing: border-box;
   padding: 5px 5px;
 }
@@ -18,17 +24,26 @@
   transition: .5s;
   text-align: center;
   position: relative;
-  max-height: 200px;
-  height: 100%;
+  max-height: 260px;
 }
 
-.img {
-  width: 100px;
-  height: auto;
+.book:hover {
+  transform: scale(0.9);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .book img {
-  width: 95%;
-  height: 65%;
+  width: 100%;
+  height: 200px;
   border-radius: 1rem 1rem 0 0;
+}
+
+.book .bottom {
+  display: flex;
+  flex-direction: column;
+}
+
+.book .bottom .title {
+  font-size: 14px;
+  margin-bottom: 32px;
 }

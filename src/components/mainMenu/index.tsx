@@ -1,8 +1,10 @@
 import React, {FC, useState} from 'react';
-import {AppstoreOutlined, SettingOutlined, UnorderedListOutlined} from '@ant-design/icons';
+import {AppstoreOutlined, SearchOutlined, SettingOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
-import {Menu} from 'antd';
+import {Input, Layout, Menu} from 'antd';
 import styles from './index.module.scss'
+import axios from "axios";
+import BookList from "../booksList";
 
 const items: MenuProps['items'] = [
 	{
@@ -55,19 +57,48 @@ const items: MenuProps['items'] = [
 ];
 
 const MainMenu: FC = () => {
-	const [current, setCurrent] = useState('list');
+	const [search, setSearch] = useState('');
+	const [bookData, setBookData] = useState([])
 
+	const searchBooks = (evt) => {
+		if (evt.key === "Enter") {
+			axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyBeCfDx-z6DlAwdUtPiLm3PCrGNoIStJIE')
+				.then(result => setBookData(result.data.items))
+				.catch(error => console.log(error))
+		}
+	}
 	const onClick: MenuProps['onClick'] = (e) => {
-		setCurrent(e.key);
+		setSearch(e.key);
 	};
 
 	return <>
-		<Menu onClick={onClick}
-		      selectedKeys={[current]}
-		      mode="horizontal"
-		      items={items}
-		      className={styles.header}
-		/>
+		<Layout>
+			<Layout.Header className={styles.header}
+			               style={{paddingInline: '0'}}>
+				<div className={styles.header}>
+					<div className={styles.search}>
+						<div className={styles.searchInput}>
+							<Input type={"text"}
+							       placeholder={"Search Book"}
+							       value={search}
+							       onChange={e => setSearch(e.target.value)}
+							       onKeyPress={searchBooks}
+							       prefix={<SearchOutlined/>}
+							/>
+						</div>
+						<Menu onClick={onClick}
+						      selectedKeys={[search]}
+						      mode="horizontal"
+						      items={items}
+						      className={styles.menu}
+						/>
+					</div>
+				</div>
+			</Layout.Header>
+			<Layout.Content className={styles.body}>
+				<BookList bookList={bookData}/>
+			</Layout.Content>
+		</Layout>
 	</>
 };
 
