@@ -1,12 +1,17 @@
 .container {
   background: #864C05;
   width: 75%;
-  height: 900px;
+  height: 810px;
   margin: 25px auto 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
   grid-gap: 20px;
   box-sizing: border-box;
+  overflow: auto;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .bookList {

@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {AppstoreOutlined, SearchOutlined, SettingOutlined, UnorderedListOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Input, Layout, Menu} from 'antd';
@@ -14,31 +14,17 @@ const items: MenuProps['items'] = [
 		children: [
 			{
 				type: 'group',
-				label: 'Books',
+				label: 'Genres',
 				children: [
 					{
 						label: (
 							<a href="http://gutendex.com/books"
 							   target="_blank"
 							   rel="noopener noreferrer">
-								Google Books
+								Computers
 							</a>
 						),
 						key: 'setting:1',
-					},
-				],
-			},
-			{
-				type: 'group',
-				label: 'Item 2',
-				children: [
-					{
-						label: 'Option 3',
-						key: 'setting:3',
-					},
-					{
-						label: 'Option 4',
-						key: 'setting:4',
 					},
 				],
 			},
@@ -58,15 +44,25 @@ const items: MenuProps['items'] = [
 
 const MainMenu: FC = () => {
 	const [search, setSearch] = useState('');
-	const [bookData, setBookData] = useState([])
+	const [bookData, setBookData] = useState([]);
+	const [randomBookList, setRandomBookList] = useState([])
+	const [openBookShelves, setOpenBookShelves] = useState<boolean>(false);
+
 
 	const searchBooks = (evt) => {
 		if (evt.key === "Enter") {
-			axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyBeCfDx-z6DlAwdUtPiLm3PCrGNoIStJIE')
+			axios.get('https://www.googleapis.com/books/v1/volumes?q=' + search + '&key=AIzaSyBeCfDx-z6DlAwdUtPiLm3PCrGNoIStJIE' + '&maxResults=40')
 				.then(result => setBookData(result.data.items))
 				.catch(error => console.log(error))
 		}
 	}
+	console.log(randomBookList)
+
+	useEffect(() => {
+		axios.get('https://www.googleapis.com/books/v1/volumes?q=js&key=AIzaSyBeCfDx-z6DlAwdUtPiLm3PCrGNoIStJIE' + '&maxResults=40')
+			.then(result => setRandomBookList(result.data.items))
+			.catch(error => console.log(error))
+	}, [])
 	const onClick: MenuProps['onClick'] = (e) => {
 		setSearch(e.key);
 	};
@@ -96,7 +92,8 @@ const MainMenu: FC = () => {
 				</div>
 			</Layout.Header>
 			<Layout.Content className={styles.body}>
-				<BookList bookList={bookData}/>
+				<BookList bookList={bookData.length !== 0 ? bookData : randomBookList}
+				          openBookShelves={openBookShelves}/>
 			</Layout.Content>
 		</Layout>
 	</>
