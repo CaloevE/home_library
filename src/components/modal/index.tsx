@@ -1,7 +1,9 @@
 import styles from './index.module.scss'
-import {CloseCircleOutlined} from "@ant-design/icons";
+import Icon, {CloseCircleOutlined} from "@ant-design/icons";
+import {useEffect, useState} from "react";
 
 const Modal = ({show, item, onClose}) => {
+	const [bookIsSelected, setBookIsSelected] = useState(false);
 
 	if (!show) {
 		return null;
@@ -12,6 +14,14 @@ const Modal = ({show, item, onClose}) => {
 		<>
 			<div className={styles.overlay}>
 				<div className={styles.overlayInner}>
+					<div onClick={() => setBookIsSelected(value => !value)}>
+						{bookIsSelected ?
+							(
+								<Icon component={() => <img src="/icons/favoriteFull.svg"/>}/>
+							) : (
+								<Icon component={() => <img src="/icons/favoriteEmpty.svg"/>}/>
+							)}
+					</div>
 					<button className={styles.close}
 					        onClick={onClose}><CloseCircleOutlined/></button>
 					<div className={styles.innerBox}>

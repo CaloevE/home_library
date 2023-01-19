@@ -1,21 +1,21 @@
 import styles from './index.module.scss';
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import Modal from "../modal";
-import Icon, {HeartTwoTone} from "@ant-design/icons";
+import Shelves from "../shelves";
+import {useNavigate} from "react-router";
 
-
-const BookList = ({bookList, openBookShelves}) => {
+const BookList = ({bookList}) => {
 	const [show, setShow] = useState(false);
 	const [bookItem, setItem] = useState();
 	const [bookAlreadyExists, setBookAlreadyExists] = useState<boolean | undefined>(false);
 	const [favoriteBooks, setFavoriteBook] = useState([]);
-
+	const navigate = useNavigate()
 	useEffect(() => {
 		localStorage.setItem('favoriteBooks', JSON.stringify(bookList))
 	}, [favoriteBooks]);
 
 	const handleBookList = (book) => {
-		let updateFavoriteBooks = [...favoriteBooks.map(item => item)]
+		let updateFavoriteBooks = [...favoriteBooks]
 		// @ts-ignore
 		if (!updateFavoriteBooks.includes(book)) {
 			// @ts-ignore
@@ -25,6 +25,10 @@ const BookList = ({bookList, openBookShelves}) => {
 			updateFavoriteBooks = updateFavoriteBooks.filter(favoriteBook => book !== favoriteBook)
 		}
 		setFavoriteBook(updateFavoriteBooks)
+	}
+
+	const handleShelves = () => {
+		navigate('/library');
 	}
 	console.log(favoriteBooks)
 	return (
@@ -36,36 +40,6 @@ const BookList = ({bookList, openBookShelves}) => {
 						if (bookThumbnail != undefined) {
 							return (
 								<>
-									{openBookShelves && (
-										<>
-											<div className={styles.bookList}
-											     onClick={() => {
-												     setShow(true);
-												     setItem(item)
-											     }}>
-												<div
-													onClick={() => handleBookList(item.id)}>
-													{bookAlreadyExists ?
-														(
-															<Icon component={() => <img src="/icons/favoriteFull.svg"/>}/>
-														) : (
-															<Icon component={() => <img src="/icons/favoriteEmpty.svg"/>}/>
-														)}
-												</div>
-												<div className={styles.book}>
-													<img src={bookThumbnail}
-													     alt="image"/>
-													<div className={styles.bottom}>
-														<h3 className={styles.title}>{item.volumeInfo.title}</h3>
-													</div>
-												</div>
-											</div>
-											<Modal show={show}
-											       item={bookItem}
-											       onClose={() => setShow(false)}/>
-										</>
-
-									)}
 									<div className={styles.bookList}
 									     onClick={() => {
 										     setShow(true);
@@ -73,12 +47,6 @@ const BookList = ({bookList, openBookShelves}) => {
 									     }}>
 										<div
 											onClick={() => handleBookList(favoriteBooks)}>
-											{bookAlreadyExists ?
-												(
-													<Icon component={() => <img src="/icons/favoriteFull.svg"/>}/>
-												) : (
-													<Icon component={() => <img src="/icons/favoriteEmpty.svg"/>}/>
-												)}
 										</div>
 										<div className={styles.book}>
 											<img src={bookThumbnail}

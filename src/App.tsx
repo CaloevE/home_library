@@ -1,11 +1,11 @@
 import React from 'react';
 import {BrowserRouter} from "react-router-dom";
-import MainMenu from "./components/mainMenu";
+import Router from "./pages/routes";
 
 function App() {
 	return (
 		<BrowserRouter>
-			<MainMenu/>
+			<Router/>
 		</BrowserRouter>
 	);
 }

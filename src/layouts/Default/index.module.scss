@@ -1,0 +1,26 @@
+.MenuContainer > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.Spacer {
+  flex: 1;
+}
+
+.body {
+  background-color: #ffe2c0;
+}
+
+html {
+  font-size: 75%;
+}
+
+.header {
+  width: 100%;
+  height: 500px;
+  color: #754610;
+  box-shadow: 0 5px 10px #D4B996FF;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
